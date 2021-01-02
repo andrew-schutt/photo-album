@@ -1,9 +1,12 @@
 # photo-album
+
 Lean Techniques showcase
 
 Hello!
 
 This is a Ruby script accomplishes the task for Option 1 for the LT Technical Showcases
+
+## Setup
 
 To run this solution ensure that you have Ruby installed on your machine
 
@@ -13,13 +16,21 @@ If this doesn't return output similar to this `ruby 2.6.5p114 (2019-10-01 revisi
 
 Here is the offical Ruby-Lang download/install instructions https://www.ruby-lang.org/en/downloads/
 
+Before executing the script you will need to give execution permissions to the file like so
+
+```bash
+chmod +x photo-album.rb
+```
+
+## Running
+
 Once you have Ruby setup and installed you can run the script like so from your terminal:
 
 ```bash
 ./photo-album.rb <ALBUM ID ARGUMENT>
 ```
 
-Where `<ALBUM ID ARGUMENT>` is an integer for an album id
+Where `<ALBUM ID ARGUMENT>` is an integer for an album id you wish to return
 
 ### NOTES
 
