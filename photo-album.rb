@@ -5,8 +5,8 @@ require 'minitest/autorun'
 class PhotoAlbumTest < Minitest::Test
   def test_photo_album_setup
     photo_album = PhotoAlbum.new('x', 'y')
-    assert photo_album.base_album_url = 'x'
-    assert photo_album.album_param = 'y'
+    assert photo_album.base_album_url == 'x'
+    assert photo_album.album_param == 'y'
   end
 
   def test_build_url_method_with_param
@@ -35,10 +35,16 @@ class PhotoAlbumTest < Minitest::Test
     assert photo_album.parse_photo_album(raw_json) == [{:id=>1, :title=>"awesome title"}]
   end
 
-  def test_print_photos
+  def test_print_photos_method
     photo_album = PhotoAlbum.new('url')
     parsed_album = [{:id=>1, :title=>"awesome title"}]
     assert_output("[1] awesome title\n") { photo_album.print_photos(parsed_album) }
+  end
+
+  def test_print_photos_method_empty_photos
+    photo_album = PhotoAlbum.new('url')
+    parsed_album = []
+    assert_output("Hmmm... no albums with that id :(\n") { photo_album.print_photos(parsed_album) }
   end
 end
 
@@ -55,9 +61,8 @@ class PhotoAlbum
   end
 
   def retrieve(album_id)
-    # uri = build_url(album_id)
-    # response = get_response(uri)
-    # print_photos(parse_photo_album(response))
+    response = get_response(build_url(album_id))
+    print_photos(parse_photo_album(response))
   end
 
   def build_url(album_id=nil)
@@ -76,7 +81,11 @@ class PhotoAlbum
   end
 
   def print_photos(photos)
-    photos.each{ |photo| puts "[#{photo[:id]}] #{photo[:title]}" }
+    if photos.empty?
+      puts "Hmmm... no albums with that id :("
+    else
+      photos.each{ |photo| puts "[#{photo[:id]}] #{photo[:title]}" }
+    end
   end
 end
 
